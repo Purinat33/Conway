@@ -4,6 +4,7 @@ package com.example.demo;
 //    Any live cell with two or three live neighbors lives on to the next generation.
 //    Any live cell with more than three live neighbors dies, as if by overpopulation.
 //    Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction.
+import java.util.Random;
 public class Board {
     public Cell[][] getBoard() {
         return board;
@@ -24,8 +25,48 @@ public class Board {
                 board[i][j] = new Cell('D');
             }
         }
+
+        System.out.println("Initial State: ");
+        randomBoard();
+        System.out.println("--------------------");
+
+        this.printBoard();
+        System.out.println("--------------------");
+
+    }
+
+    public void randomBoard(){
+        Random r = new Random();
+        boolean living;
+        for(int i = 0 ; i < boardSize; i++){
+            for(int j = 0 ; j < boardSize; j++){
+                living = r.nextBoolean();
+                if(living) board[i][j].setState('L');
+            }
+        }
+    }
+
+    public void setBlink(int row, int col){
+
+        if(col == 0){
+            this.board[row][col].setState('L');
+            this.board[row][col+2].setState('L');
+            this.board[row][col+1].setState('L');
+        }
+        else if(col == this.boardSize-1){
+            this.board[row][col].setState('L');
+            this.board[row][col-1].setState('L');
+            this.board[row][col-2].setState('L');
+        }else{
+            this.board[row][col].setState('L');
+            this.board[row][col-1].setState('L');
+            this.board[row][col+1].setState('L');
+        }
+
+    }
+
+    public void setArch(int initial){
         // Arch wave
-        int initial = 4;
         this.board[initial][initial+1].setState('L');
         this.board[initial][initial+2].setState('L');
         this.board[initial][initial+3].setState('L');
@@ -194,7 +235,7 @@ public class Board {
             }
         }
 
-        System.out.println(iteration);
+        System.out.println("Iteration: " + iteration);
         System.out.println("----------------");
         for(int row = 0; row < boardSize; row++){
             for(int col = 0; col < boardSize; col++){

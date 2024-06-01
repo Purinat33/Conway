@@ -27,3 +27,9 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+## Text Out ##
+/text/
+/text/1717219044925.txt
+/text/1717219102510.txt
+!/text/1717219170979.txt
